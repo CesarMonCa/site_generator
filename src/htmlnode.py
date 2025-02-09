@@ -1,4 +1,9 @@
 class HTMLNode:
+    """
+    The HTMLNode class will represent a “node” in an HTML document tree 
+    (like a <p> tag and its contents, or an <a> tag and its contents) 
+    and is purpose-built to render itself as HTML.
+    """
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag
         self.value = value
@@ -9,6 +14,9 @@ class HTMLNode:
         raise NotImplementedError("to_html method not implemented")
 
     def props_to_html(self):
+        """
+        This functions returns a string that represents the HTML attributes of the node. 
+        """
         if self.props is None:
             return ""
         props_html = ""
@@ -21,6 +29,10 @@ class HTMLNode:
 
 
 class LeafNode(HTMLNode):
+    """
+    A LeafNode is a type of HTMLNode that represents a single HTML tag with no children. 
+    For example, a simple <p> tag with some text inside of it
+    """
     def __init__(self, tag, value, props=None):
         super().__init__(tag, value, None, props)
 
@@ -36,6 +48,10 @@ class LeafNode(HTMLNode):
 
 
 class ParentNode(HTMLNode):
+    """
+    ParentNode class will handle the nesting of HTML nodes inside of one another. 
+    Any HTML node that’s not “leaf” node (i.e. it has children) is a “parent” node.
+    """
     def __init__(self, tag, children, props=None):
         super().__init__(tag, None, children, props)
 
