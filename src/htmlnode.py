@@ -15,7 +15,7 @@ class HTMLNode:
 
     def props_to_html(self):
         """
-        This functions returns a string that represents the HTML attributes of the node. 
+        This method returns a string that represents the HTML attributes of the node. 
         """
         if self.props is None:
             return ""
