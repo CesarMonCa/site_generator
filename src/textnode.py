@@ -3,6 +3,7 @@ from enum import Enum
 
 
 class TextType(Enum):
+    """Enumeration for different types of inline text in Markdown."""
     TEXT = "text"
     BOLD = "bold"
     ITALIC = "italic"
@@ -10,8 +11,15 @@ class TextType(Enum):
     LINK = "link"
     IMAGE = "image"
 
-
 class TextNode:
+    """
+    A TextNode Represents a unit of inline text in a Markdown parser.
+
+    A TextNode is an intermediate representation of text, which will be
+    processed and converted into HTML. It supports various text types,
+    including bold, italic, code, links, and images.
+
+    """
     def __init__(self, text, text_type, url=None):
         self.text = text
         self.text_type = text_type
@@ -29,6 +37,9 @@ class TextNode:
 
 
 def text_node_to_html_node(text_node):
+    """
+    This function converts a TextNode to an a Leafnode which is an HTMLNode with no children.
+    """
     if text_node.text_type == TextType.TEXT:
         return LeafNode(None, text_node.text)
     if text_node.text_type == TextType.BOLD:
