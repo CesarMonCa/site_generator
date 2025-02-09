@@ -1,6 +1,8 @@
 import unittest
 from htmlnode import LeafNode, ParentNode, HTMLNode
-
+"""
+These are tests for HTML node, I used the unittest module to check the expected response of the motheods inside the htmlnode class.
+"""
 
 class TestHTMLNode(unittest.TestCase):
     def test_to_html_props(self):
