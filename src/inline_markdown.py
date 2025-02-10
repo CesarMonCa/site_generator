@@ -4,6 +4,9 @@ from textnode import TextNode, TextType
 
 
 def text_to_textnodes(text):
+    """
+    This function converts a raw string of markdown text into a list of TextNode objects.
+    """
     nodes = [TextNode(text, TextType.TEXT)]
     nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
     nodes = split_nodes_delimiter(nodes, "*", TextType.ITALIC)
@@ -14,6 +17,11 @@ def text_to_textnodes(text):
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
+    """
+    The split_nodes_delimeter function takes a list of “old nodes”, a delimiter, and a text type. 
+    It returns a new list of nodes, where any “text” type nodes in the input list are split 
+    into multiple nodes based on the syntax.
+    """
     new_nodes = []
     for old_node in old_nodes:
         if old_node.text_type != TextType.TEXT:
@@ -35,6 +43,10 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
 
 def split_nodes_image(old_nodes):
+    """
+    This function splits the TextNode objects using the extract_markdown_images function.
+    It separates the text surrounding the alt text and image and returns a list.
+    """
     new_nodes = []
     for old_node in old_nodes:
         if old_node.text_type != TextType.TEXT:
@@ -65,6 +77,10 @@ def split_nodes_image(old_nodes):
 
 
 def split_nodes_link(old_nodes):
+     """
+    This function splits the TextNode objects using the extract_markdown_images function.
+    It separates the text surrounding the alt text and links and returns a list.
+    """
     new_nodes = []
     for old_node in old_nodes:
         if old_node.text_type != TextType.TEXT:
@@ -89,12 +105,22 @@ def split_nodes_link(old_nodes):
 
 
 def extract_markdown_images(text):
+    """
+    Takes raw markdown text and returns a list of tuples. 
+    It uses regex to find and separate images from the text. 
+    Each tuple should contain the alt text and the URL of any markdown images.
+    """
     pattern = r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
     matches = re.findall(pattern, text)
     return matches
 
 
 def extract_markdown_links(text):
+     """
+    Takes raw markdown text and returns a list of tuples. 
+    It uses regex to find and separate links from the text. 
+    Each tuple should contain the alt text and the URL of any markdown links.
+    """
     pattern = r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
     matches = re.findall(pattern, text)
     return matches
