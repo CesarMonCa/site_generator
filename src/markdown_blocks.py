@@ -11,6 +11,10 @@ block_type_ulist = "unordered_list"
 
 
 def markdown_to_blocks(markdown):
+    """
+    This function takes a raw Markdown string  
+    as input and returns a list of “block” strings. 
+    """
     blocks = markdown.split("\n\n")
     filtered_blocks = []
     for block in blocks:
@@ -22,6 +26,10 @@ def markdown_to_blocks(markdown):
 
 
 def block_to_block_type(block):
+    """
+    takes a single block of markdown text as input and 
+    returns a string representing the type of block it is.
+    """
     lines = block.split("\n")
 
     if block.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
@@ -54,6 +62,9 @@ def block_to_block_type(block):
 
 
 def markdown_to_html_node(markdown):
+    """
+    converts a full markdown document into a single parent HTMLNode
+    """
     blocks = markdown_to_blocks(markdown)
     children = []
     for block in blocks:
@@ -63,6 +74,10 @@ def markdown_to_html_node(markdown):
 
 
 def block_to_html_node(block):
+    """
+    Function checks 6 types of markdown blocks and uses the 
+    relevant function to convert it to an HTML node.
+    """
     block_type = block_to_block_type(block)
     if block_type == block_type_paragraph:
         return paragraph_to_html_node(block)
