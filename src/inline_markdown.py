@@ -18,7 +18,7 @@ def text_to_textnodes(text):
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     """
-    The split_nodes_delimeter function takes a list of “old nodes”, a delimiter, and a text type. 
+    This function takes a list of “old nodes”, a delimiter, and a text type. 
     It returns a new list of nodes, where any “text” type nodes in the input list are split 
     into multiple nodes based on the syntax.
     """
@@ -29,8 +29,13 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             continue
         split_nodes = []
         sections = old_node.text.split(delimiter)
+
+        # If an odd number of sections is expected but isn't found, it's an error
         if len(sections) % 2 == 0:
-            raise ValueError("invalid markdown, formatted section not closed")
+            print(f"Warning: Unmatched delimiter `{delimiter}` in text: {old_node.text}")
+            new_nodes.append(old_node)  # Keep the original node as plain text
+            continue  # Skip processing this node
+
         for i in range(len(sections)):
             if sections[i] == "":
                 continue
@@ -38,6 +43,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
                 split_nodes.append(TextNode(sections[i], TextType.TEXT))
             else:
                 split_nodes.append(TextNode(sections[i], text_type))
+
         new_nodes.extend(split_nodes)
     return new_nodes
 
@@ -77,7 +83,7 @@ def split_nodes_image(old_nodes):
 
 
 def split_nodes_link(old_nodes):
-     """
+    """
     This function splits the TextNode objects using the extract_markdown_images function.
     It separates the text surrounding the alt text and links and returns a list.
     """
@@ -116,7 +122,7 @@ def extract_markdown_images(text):
 
 
 def extract_markdown_links(text):
-     """
+    """
     Takes raw markdown text and returns a list of tuples. 
     It uses regex to find and separate links from the text. 
     Each tuple should contain the alt text and the URL of any markdown links.
