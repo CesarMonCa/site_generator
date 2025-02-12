@@ -36,7 +36,7 @@ print("Wagyu")
 print("Steak")
 ```
 
-## Temples in Japan**
+## Temples in Japan
 
 ### My list:
 
